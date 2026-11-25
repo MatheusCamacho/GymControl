@@ -17,9 +17,5 @@ Clique em “Visão geral” para abrir o calendário mensal com o resumo de pag
 ## Arquitetura
 src/main.jsx: interface React, estados, formulários e fetch. server.js: rotas REST Express e validação. db.js: SQLite nativo do Node, tabelas e regra de pagamento. Valores em centavos; UNIQUE impede duplicidade por aluno/mês. Dois planos iniciais fictícios. O sistema considera todos os alunos cadastrados devidos em qualquer mês selecionado; não há datas de matrícula, autenticação, estorno ou edição/exclusão de planos. Uso acadêmico local.
 
-## Prompts reais da conversa
-- “eu n lembro oq usamos, lembro q usamos react Tem alguma recomendaçao de tecnologia facil?” — definição da stack.
-- “Pode ser, manda bala” — autorização para implementar a proposta de GymControl, com React, Vite, Express, SQLite e Bootstrap.
-
 ## Resultados reais
 O teste automatizado de banco passou, incluindo cadastro, edição, pagamento, rejeição de duplicidade, mês inválido, aluno inexistente e exclusão em cascata. Veja testes.txt. A instalação de dependências falhou neste ambiente por DNS (EAI_AGAIN no registry.npmjs.org). Portanto API HTTP, build e interface ainda precisam ser testados no computador dos integrantes. Não apresentar esses itens como aprovados antes de executar. SQLite nativo em Node 22 emite aviso experimental. Confirmar com o professor/colega se a stack corresponde à usada em aula.
