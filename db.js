@@ -1,0 +1,5 @@
+import {DatabaseSync} from 'node:sqlite';
+export function database(path='gym.db') {
+ const db=new DatabaseSync(path); db.exec(`PRAGMA foreign_keys=ON; CREATE TABLE IF NOT EXISTS plans(id INTEGER PRIMARY KEY, name TEXT NOT NULL UNIQUE, price INTEGER NOT NULL CHECK(price>0)); CREATE TABLE IF NOT EXISTS students(id INTEGER PRIMARY KEY,name TEXT NOT NULL,email TEXT NOT NULL,plan_id INTEGER NOT NULL REFERENCES plans(id)); CREATE TABLE IF NOT EXISTS payments(id INTEGER PRIMARY KEY,student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,month TEXT NOT NULL,amount INTEGER NOT NULL, UNIQUE(student_id,month)); INSERT OR IGNORE INTO plans(name,price) VALUES ('Mensal',9900),('Premium',14900);`); return db;
+}
+export function registerPayment(db,id,month){if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) throw Error('Mês inválido'); const p=db.prepare('SELECT price FROM students JOIN plans ON plans.id=students.plan_id WHERE students.id=?').get(id); if(!p) throw Error('Aluno inexistente'); return db.prepare('INSERT INTO payments(student_id,month,amount) VALUES (?,?,?)').run(id,month,p.price);}
